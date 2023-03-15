@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
+                template="/templates/PartyManagerMainTemplate.xhtml">
+
+    <ui:define name="top">
+        <ui:include src="/templates/HeaderTemplate.xhtml"></ui:include>
+    </ui:define>
+
+    <ui:define name="left">
+        <ui:include src="/templates/LeftMenuTemplate.xhtml"></ui:include>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:body>
+            <h:form id="newaccount" >
+                <b:container fluid="false" span="3" offset="3">
+                    <b:inputText value="#{createAccountBean.accountDTO.login}" placeholder="#{msg['createaccount.placeholder.login']}" />
+                    <b:message for="@previous" />
+                    <b:inputSecret value="#{createAccountBean.accountDTO.password}" placeholder="#{msg['createaccount.placeholder.password']}" />
+                    <b:message for="@previous" />
+                    <b:inputSecret placeholder="#{msg['createaccount.placeholder.repeatpassword']}" required="true"/>
+                    <b:message for="@previous" />
+                    <b:inputText value="#{createAccountBean.accountDTO.email}" placeholder="#{msg['createaccount.placeholder.email']}"  mask="email"/>
+                    <b:message for="@previous" />
+                    <b:inputText value="#{createAccountBean.accountDTO.firstName}" placeholder="#{msg['createaccount.placeholder.firstname']}" />
+                    <b:message for="@previous" />
+                    <b:inputText value="#{createAccountBean.accountDTO.secondName}" placeholder="#{msg['createaccount.placeholder.secondname']}" />
+                    <b:message for="@previous" />
+                    <b:inputText value="#{createAccountBean.accountDTO.phoneNumber}" placeholder="#{msg['createaccount.placeholder.phonenumber']}" size="9"/>
+                    <b:message for="@previous" />
+                    <b:buttonGroup>
+                        <b:commandButton value="#{msg['universal.button.create']}" action="#{createAccountBean.createReceptionistAccount()}" />
+                        <b:button value="#{msg['universal.button.cancel']}" outcome="index"/>
+                    </b:buttonGroup>
+                </b:container>
+            </h:form>
+
+        </h:body>
+    </ui:define>
+
+    <ui:define name="footer">
+        <ui:include src="../templates/FooterTemplate.xhtml"></ui:include>
+    </ui:define>
+</ui:composition>

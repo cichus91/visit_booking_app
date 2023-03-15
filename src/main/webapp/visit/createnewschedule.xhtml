@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/templates/PartyManagerMainTemplate.xhtml">
+    <ui:define name="top">
+        <ui:include src="/templates/HeaderTemplate.xhtml"></ui:include>
+    </ui:define>
+
+    <ui:define name="left">
+        <ui:include src="/templates/LeftMenuTemplate.xhtml"></ui:include>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:body>
+            <h:form id="newScheduleForm" >
+                <b:container fluid="false" span="3" offset="3">
+                    <b:messages/>
+                    <b:dateTimePicker id="scheduleStartDate" value="#{createNewScheduleBean.scheduleDTO.startDate}" placeholder="#{msg['createnewschedule.placeholder.schedule.beggining']}" required="true"/>
+                    <b:dateTimePicker id="scheduleEndDate" value="#{createNewScheduleBean.scheduleDTO.endDate}" placeholder="#{msg['createnewschedule.placeholder.schedule.ending']}" required="true"/>
+                    <b:buttonGroup>
+                        <b:commandButton value="#{msg['universal.button.create']}" action="#{createNewScheduleBean.createNewSchedule()}" />
+                        <b:button value="#{msg['universal.button.cancel']}" outcome="index"/>
+                    </b:buttonGroup>
+                </b:container>
+            </h:form>
+
+        </h:body>
+    </ui:define>
+
+    <ui:define name="footer">
+        <ui:include src="/templates/FooterTemplate.xhtml"></ui:include>
+    </ui:define>
+</ui:composition>

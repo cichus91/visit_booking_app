@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+                template="/templates/PartyManagerMainTemplate.xhtml">
+    <ui:define name="top">
+        <ui:include src="/templates/HeaderTemplate.xhtml"></ui:include>
+    </ui:define>
+
+    <ui:define name="left">
+        <ui:include src="/templates/LeftMenuTemplate.xhtml"></ui:include>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <b:panel>
+                <b:container>
+                    <b:dataTable value="#{patientsListBean.accountDTOsList}" var="patient">
+                        <b:dataTableColumn  value="#{patient.login}" label="#{msg['accountlist.label.login']}"/>
+                        <b:dataTableColumn value="#{patient.firstName}" label="#{msg['accountlist.label.firstname']}"/>
+                        <b:dataTableColumn value="#{patient.secondName}" label="#{msg['accountlist.label.secondname']}"/>
+                        <b:dataTableColumn value="#{patient.email}" label="#{msg['accountlist.label.email']}"/>
+                        <b:dataTableColumn value="#{patient.dateOfBirth}" label="#{msg['patientlist.label.dateofbirth']}"/>
+                        <b:dataTableColumn value="#{patient.addressDTO}" label="#{msg['patientlist.label.address']}"/>
+                        <b:dataTableColumn label="#{msg['accountlist.label.active']}">
+                            <b:selectBooleanCheckbox value="#{account.active}" disabled="true"/>
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="#{msg['patientlist.label.actions']}">
+                            <b:commandButton value="#{msg['universal.button.edit']}" action="#{patientsListBean.editAccount(patient)}"/>
+                            <b:commandButton value="#{msg['universal.button.showaccount']}" action="#{patientsListBean.viewAccount(patient)}"/>
+                        </b:dataTableColumn>
+                    </b:dataTable>
+                    <b:link look="default" value="#{msg['universal.button.back']}" outcome="index"/>
+                </b:container>
+            </b:panel>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="footer"/>
+</ui:composition>

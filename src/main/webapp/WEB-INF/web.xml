@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <context-param>
+        <param-name>jakarta.faces.PROJECT_STAGE</param-name>
+        <param-value>Production</param-value>
+    </context-param>
+    <context-param>
+        <param-name>resourceBundle.path</param-name>
+        <param-value>i18n.messages</param-value>
+    </context-param>
+
+    <env-entry>
+        <env-entry-name>txRetryLimit</env-entry-name>
+        <env-entry-type>java.lang.Integer</env-entry-type>
+        <env-entry-value>3</env-entry-value>
+    </env-entry>
+
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>facesServlet</servlet-name>
+        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>facesServlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+
+    <mime-mapping>
+        <extension>woff2</extension>
+        <mime-type>application/font-woff2</mime-type>
+    </mime-mapping>
+
+    <security-role>
+        <description/>
+        <role-name>Patient</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>Admin</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>Receptionist</role-name>
+    </security-role>
+
+
+    <security-constraint>
+        <display-name>AuthorizedUserPages</display-name>
+        <web-resource-collection>
+            <web-resource-name>AuthorizedUserPages</web-resource-name>
+            <description/>
+            <url-pattern>/faces/account/viewmyaccount.xhtml</url-pattern>
+            <url-pattern>/faces/account/changemypassword.xhtml</url-pattern>
+            <url-pattern>/faces/account/editaccount.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>Admin</role-name>
+            <role-name>Receptionist</role-name>
+            <role-name>Patient</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <display-name>PatientPages</display-name>
+        <web-resource-collection>
+            <web-resource-name>PatientPages</web-resource-name>
+            <description/>
+            <url-pattern>/faces/account/editmyaddress.xhtml</url-pattern>
+            <url-pattern>/faces/visit/allvisitslist.xhtml</url-pattern>
+            <url-pattern>/faces/visit/viewmyhistory.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>Patient</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <display-name>ReceptionistPages</display-name>
+        <web-resource-collection>
+            <web-resource-name>ReceptionistPages</web-resource-name>
+            <description/>
+            <url-pattern>/faces/account/patientslist.xhtml</url-pattern>
+            <url-pattern>/faces/visit/allscheduleslist.xhtml</url-pattern>
+            <url-pattern>/faces/visit/createnewschedule.xhtml</url-pattern>
+            <url-pattern>/faces/visit/createnewvisit.xhtml</url-pattern>
+            <url-pattern>/faces/visit/viewpatientvisits.xhtml</url-pattern>
+            <url-pattern>/faces/visit/viewschedule.xhtml</url-pattern>
+            <url-pattern>/faces/account/viewaccount.xhtml</url-pattern>
+            <url-pattern>/faces/visit/allvisitslist.xhtml</url-pattern>
+            <url-pattern>/faces/account/editaccount.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>Receptionist</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <display-name>AdminPages</display-name>
+        <web-resource-collection>
+            <web-resource-name>AdminPages</web-resource-name>
+            <description/>
+            <url-pattern>/faces/account/allaccountslist.xhtml</url-pattern>
+            <url-pattern>/faces/account/editaccountadminview.xhtml</url-pattern>
+            <url-pattern>/faces/account/createadminaccount.xhtml</url-pattern>
+            <url-pattern>/faces/account/createreceptionistaccount.xhtml</url-pattern>
+            <url-pattern>/faces/account/viewaccount.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>Admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <display-name>HTTPS</display-name>
+        <web-resource-collection>
+            <web-resource-name>allPages</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/faces/error/error403.xhtml</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/faces/error/error404.xhtml</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/faces/error/error.xhtml</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/faces/error/error.xhtml</location>
+    </error-page>
+
+
+</web-app>

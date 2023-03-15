@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui">
+    <b:form id="leftmenu">
+            <b:column span="2">
+                <b:panel look="primary" title="Menu" collapsible="false">
+                    <b:listLinks>
+                        <f:subview id="loggeduser" rendered="#{not empty request.remoteUser}">
+                            <b:navLink header="#{msg['left.menu.account.menu']}"/>
+                            <b:navLink value="#{msg['left.menu.show.my.account']}" outcome="showmyaccount"/>
+                        </f:subview>
+                        <f:subview id="patientview" rendered="#{request.isUserInRole('Patient')}">
+                            <b:navLink value="#{msg['left.menu.unbooked.visits']}" outcome="viewallunbookedvisits"/>
+                        </f:subview>
+                        <f:subview id="receptionistview" rendered="#{request.isUserInRole('Receptionist')}">
+                            <b:navLink header="#{msg['left.menu.receptionistmenu']}"/>
+                            <b:navLink value="#{msg['left.menu.create.new.schedule']}" outcome="createnewschedule"/>
+                            <b:navLink value="#{msg['left.menu.all.schedules']}" outcome="allscheduleslist"/>
+                            <b:navLink value="#{msg['left.menu.showall']}" outcome="allvisitslist"/>
+                            <b:navLink value="#{msg['left.menu.unbooked.visits']}" outcome="viewallunbookedvisits"/>
+                            <b:navLink value="#{msg['left.menu.patientslist']}" outcome="patientslist"/>
+                        </f:subview>
+                        <b:navLink></b:navLink>
+                        <f:subview id="adminview" rendered="#{request.isUserInRole('Admin')}">
+                            <b:navLink header="#{msg['left.menu.adminmenu']}"/>
+                            <b:navLink value="#{msg['left.menu.createreceptionist']}" outcome="createreceptionist"/>
+                            <b:navLink value="#{msg['left.menu.createadmin']}" outcome="createadmin"/>
+                            <b:navLink value="#{msg['left.menu.allaccountslist']}" outcome="allaccountslist"/>
+                        </f:subview>
+                    </b:listLinks>
+                </b:panel>
+            </b:column>
+    </b:form>
+
+</ui:composition>
